@@ -27,10 +27,7 @@ var my_test_object =
 
 rds.set('sng::gangnam-style', JSON.stringify(my_test_object))
 
-app.post('/1/submit/:song_id/', function(req, res) {
-    // send gif info to the backend
-    //checkOverlap()
-    //pushtoredis()
+app.post('/1/gif/:song_id', function(req, res) {
     user = req.body.user;
     gif_file = req.body.gif;
     timestamp = req.body.timestamp;
@@ -73,7 +70,7 @@ function checkOverlap(gif, song) {
 }
 
 //app.get('/1/meta/:song/:project', function(req, res) {
-app.get('/1/meta/:song_id/', function(req, res) {
+app.get('/1/song/:song_id/', function(req, res) {
     // Get gif placement info from the backend for a song
     song = req.params.song_id;
     rds.get(songMakeKey(song), function (err, reply) {
