@@ -35,4 +35,25 @@ function PlayerCtrl($scope, $http) {
             $this.addClass('playing');
         }
     });
+    
+    
+    // // Post gif timestamp
+    $scope.$on('gmbomt:gif_dropped', function(e, args) {
+        post_gif_timestamp(args.gif_url);
+    });
+    var post_gif_timestamp = function(gif_url) {
+        var url = '/1/dropgif/' + user + '/' + songname;
+        $.post(url,
+            {
+                user: user,
+                gif: gif_url,
+                timestamp: -999,
+                row: 1
+            },
+            function(data) {
+                if (data.match(/true/)) {
+                    console.log('POSTED TIMESTAMP YO');
+            }
+        });
+    };
 }

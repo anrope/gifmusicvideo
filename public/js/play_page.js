@@ -56,6 +56,14 @@ function setUpDrag() {
                 'width': width,
                 'background-image': background_image
             }).removeClass('placed');
+            
+            // Send angular event to post gif timestamp
+            var scope = angular.element($('body')).scope();
+            scope.$apply(function() {
+                scope.$broadcast('gmbomt:gif_dropped', {
+                    gif_url: background_image
+                });
+            });
         }
     });
     $('#scroll').click(function() {
