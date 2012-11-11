@@ -47,16 +47,17 @@ function setUpDrag() {
             $placer = $('#placer');
             var left_pos = $placer.css('left');
             var background_image = $placer.css('background-image');
+            var background_url = background_image.replace('url(', '').replace(')', '');
             place_gif({
                 left: left_pos,
-                background_image: background_image
+                background_url: background_url
             });
             
             // Send angular event to post gif timestamp
             var scope = angular.element($('body')).scope();
             scope.$apply(function() {
                 scope.$broadcast('gmbomt:gif_dropped', {
-                    gif_url: background_image,
+                    gif_url: background_url,
                     position: parseInt($('#gif_inner').children().last().css('left'), 10)
                 });
             });
@@ -72,6 +73,6 @@ function place_gif (args) {
         'left': args.left,
         'height': $placer.height(),
         'width': $placer.width(),
-        'background-image': args.background_image
+        'background-image': 'url(' + args.background_url + ')'
     }).removeClass('placed');
 }
