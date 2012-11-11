@@ -1,0 +1,108 @@
+    * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+    
+    #header {
+        font-size: 40px;
+        font-weight: bold;
+        font-family: sans-serif;
+        position: absolute;
+        z-index: 888;
+    }
+    #gif_block {
+        position: absolute;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #444;
+        z-index: 9999;
+        -webkit-transition: all 0.1s linear;
+        overflow: hidden;
+    }
+    #gif_block.expanded {
+        height: 100% !important;
+    }
+    #gif_strip {
+        width: 100%;
+        height: 140px;
+        background: #222;
+        overflow: visible;
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+    #gif_strip.drag_in_progress {
+        z-index: 9999;
+    }
+    #side_bottom {
+    }
+    #edit_toggle {
+        height: 30px;
+        text-align: center;
+        width: 102px;
+        background: #000;
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-family: sans-serif;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding-top: 10px;
+        padding-left: 6px;
+        cursor: pointer;
+    }
+    .gif_box {
+        width: 140px;
+        height: 100px;
+        background-position: center center;
+        background-size: cover;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+        float: left;
+        position: relative;
+        margin: 20px 0 0 20px;
+    }
+    #gif_inner {
+        width: 3000px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+    }
+    .drop_zone {
+        width: 600px;
+        height: 100%;
+        border: solid 1px #000;
+        background-size: cover;
+        background-position: center center;
+        float: left;
+        margin: 0;
+    }
+    .ui-draggable-dragging.over {
+        opacity: 0;
+        visibility: hidden;
+    }
+    .drop_zone.ui-state-active {
+        background: red;
+    }
+    .gif_placed_box {
+        position: absolute;
+        background-size: cover;
+        background-position: center center;
+    }
+    #placer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-size: cover;
+        background-position: center center;
+    }
+    #scroll {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
