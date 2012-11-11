@@ -17,10 +17,12 @@ function PlayerCtrl($scope, $http) {
     // Get GIF data for the song
     suggest_api = 'http://' + appConfig.context + '/1/suggest/' + 
         user + "/" + songname + "/";
+    var available_images;
     $http.get(suggest_api).success(function(data) {
         $scope.base_url = data.base_url;
 
-        image_slots = Math.floor(($('#side_bottom').width() / 140) - 5);
+        //image_slots = Math.floor(($('#side_bottom').width() / 140) - 9);
+        image_slots = 3;
         console.log('image_slots ' + image_slots + ' ' + $('#side_bottom').width());
 
         $scope.images = data.images.slice(0, image_slots);
@@ -29,15 +31,24 @@ function PlayerCtrl($scope, $http) {
         setTimeout(onReadyCallback, 0);
     });
 
+    console.log('available images init')
+    console.log(available_images)
+
     $('#suggest_more').click(function() {
         $('.gif_box').each(function(index) {
-            /*
             new_image = available_images.pop()
-            if (isempty(new_image)) {
-                suggest_more();
+            if (!new_image) {
+                $http.get(suggest_api).success(function(data) {
+                    $('.gif_box').each(function(index) {
+                        if ($(this).attr('style').indexOf('loading.gif') == -1) {
+                            $(this).attr('style', 'background-image: url(' + data.images.pop() + ');');
+                        };
+                    });
+
+                    available_images.push.apply(available_images, data.images);
+                });
                 new_image = '/img/loading.gif';
             };
-            */
             new_image = "/img/loading.gif"
             $(this).attr('style', 'background-image: url(' + new_image + ');');
         });
