@@ -35,4 +35,50 @@ function PlayerCtrl($scope, $http) {
             $this.addClass('playing');
         }
     });
+
+    var nextImageInStrip = 0;
+    function triggerTime(ms) {
+        renderNewImages(ms);
+        removePastImages(ms);
+    }
+
+    var imageBuffer = [];
+
+    function renderNewImages(ms) {
+        var loadBuffer = 8; //sec
+        var renderBuffer = 1; //sec
+        var max = ms + loadBuffer*1000;
+        var gifs = $scope.song.gifs;
+        for(var i=nextImageInStrip; i < gifs.length && gifs[i].timestamp < max; i++) {
+            var gif = gifs[i];
+            var img = bufferImage(gif.url);
+            setTimeout(function() {
+                addImage(gif, ms);
+            }, (loadBuffer - renderBuffer) * 1000);
+            nextImageInStrip++;
+        }
+    }
+
+    function bufferImage(url) {
+        var img = new Image();
+        img.src = url;
+        return img;
+    }
+
+    function addImage(gif, ms) {
+        
+    }
+
+    function removePastImages(ms) {
+        $('.gif_placed_box').each(function() {
+            var $item = $(this);
+            var rightPosition = parseInt($item.css('left')) + parseInt($item.css('width'));
+            if (rightPosition) {
+                
+            }
+        });
+        
+    }
+
+   
 }
