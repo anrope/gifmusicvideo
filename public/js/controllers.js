@@ -20,6 +20,7 @@ function PlayerCtrl($scope, $http) {
         console.log(data);
         console.log('lol');
         $scope.suggest = data;
+        setTimeout(setUpDrag, 0);
     });
 
     player.init(currentSong);

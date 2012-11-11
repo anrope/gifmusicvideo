@@ -1,4 +1,5 @@
-$(document).ready( function() {
+function setUpDrag() {
+    console.log('set up');
     $('#edit_toggle').click( function() {
         $('#gif_block').toggleClass('expanded');
     });
@@ -26,7 +27,7 @@ $(document).ready( function() {
             $('#gif_strip').addClass('drag_in_progress');
         },
         drag: function() {
-            var left_pos = $('.ui-draggable-dragging').offset().left;
+            var left_pos = ($('.ui-draggable-dragging').offset().left - 120);
             if ( left_pos < 0 ) {
                 left_pos = 0;
             }
@@ -57,14 +58,9 @@ $(document).ready( function() {
             }).removeClass('placed');
         }
     });
-    $('.gif_placed_box').droppable({
-        over: function(e, ui){
-            console.log('over');
-        }
-    });
     $('#scroll').click(function() {
         $('#gif_inner').animate({
             'left' : '-2000px'
         }, 2000);
     });
-});
+};
