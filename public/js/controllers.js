@@ -16,7 +16,8 @@ function PlayerCtrl($scope, $http) {
 
 
     // Get GIF data for the song
-    song_api = appConfig.context + '/1/suggest/' + user + "/" + songname + "/";
+    song_api = 'http://' + appConfig.context + '/1/suggest/' + 
+        user + "/" + songname + "/";
     $http.get(song_api).success(function(data) {
         console.log(data);
         console.log('lol');
