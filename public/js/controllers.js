@@ -77,18 +77,20 @@ function PlayerCtrl($scope, $http) {
     var imageBuffer = [];
 
     function renderNewImages(ms) {
-        var loadBuffer = 8; //sec
-        var renderBuffer = 1; //sec
-        var max = ms + loadBuffer*1000;
+        var offset = position_to_timestamp($('#gif_inner').width());
+        var loadBuffer = 8000 + offset; //msec
+        var renderBuffer = 1000 + offset; //msec
+        var max = ms + loadBuffer;
         var gifs = $scope.song.gifs;
         for(var i=nextImageInStrip; i < gifs.length && gifs[i].timestamp < max; i++) {
             (function() {
                 var gif = gifs[i];
-                console.log(gif);
                 var img = bufferImage(gif.gif);
+                var insertDelay = gif.timestamp < ms + renderBuffer ? 0 : 
+                                    ( gif.timestamp < ms + loadBuffer ? (loadBuffer - renderBuffer - gif.timestamp) : (loadBuffer - renderBuffer) );
                 setTimeout(function() {
                     addImage(gif.gif, gif.timestamp);
-                }, (loadBuffer - renderBuffer) * 1000);
+                }, insertDelay);
                 nextImageInStrip++;
             }());
         }
@@ -106,7 +108,7 @@ function PlayerCtrl($scope, $http) {
             left: pos,
             background_image: url
         });
-        console.log(arguments);
+        console.log(url, pos);
     }
 
     function removePastImages(ms) {
