@@ -1,6 +1,30 @@
 function setUpDrag() {
     $('#edit_toggle').click( function() {
-        $('#gif_block').toggleClass('expanded');
+        if ( $('#gif_block').hasClass('expanded') ) {
+            $('#gif_block').removeClass('expanded');
+            $(this).text('focus');
+            var window_height = $(window).height()
+            var strip_height = window_height - $('#gif_strip').height();
+            $('#gif_block').height(strip_height);
+            $('#gif_inner').height(strip_height);
+            var placer_height = strip_height;
+            var placer_width = placer_height * 1.25;
+            $('.gif_placed_box').css({
+                'height' : placer_height,
+                'width' : placer_width
+            });
+        } else {
+            $('#gif_block').addClass('expanded').height('100%');
+            $(this).text('contribute');
+            var window_height = $(window).height()
+            $('#gif_inner').height('100%');
+            var placer_height = window_height;
+            var placer_width = placer_height * 1.25;
+            $('.gif_placed_box').css({
+                'height' : placer_height,
+                'width' : placer_width
+            });
+        }
     });
     // Set up strip height
     var window_height = $(window).height();
@@ -23,7 +47,7 @@ function setUpDrag() {
         },
         stop: function() {
             $('#placer').remove();
-            $('#gif_strip').addClass('drag_in_progress');
+            $('#gif_strip').removeClass('drag_in_progress');
         },
         drag: function() {
             var scrolled = parseInt($('#gif_inner').css('left'), 10);
