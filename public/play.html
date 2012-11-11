@@ -1,0 +1,223 @@
+<html>
+<head>
+    <style type="text/css">
+        /* http://meyerweb.com/eric/tools/css/reset/ 
+           v2.0 | 20110126
+           License: none (public domain)
+        */
+
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+        	margin: 0;
+        	padding: 0;
+        	border: 0;
+        	font-size: 100%;
+        	font: inherit;
+        	vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+        	display: block;
+        }
+        body {
+        	line-height: 1;
+        }
+        ol, ul {
+        	list-style: none;
+        }
+        blockquote, q {
+        	quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+        	content: '';
+        	content: none;
+        }
+        table {
+        	border-collapse: collapse;
+        	border-spacing: 0;
+        }
+        
+        * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+        
+        #header {
+            font-size: 40px;
+            font-weight: bold;
+            font-family: sans-serif;
+            position: absolute;
+            z-index: 888;
+        }
+        #gif_block {
+            position: absolute;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #444;
+            z-index: 9999;
+            -webkit-transition: all 0.1s linear;
+            overflow: hidden;
+        }
+        #gif_block.expanded {
+            height: 100% !important;
+        }
+        #gif_strip {
+            width: 100%;
+            height: 140px;
+            background: #222;
+            overflow: visible;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        #gif_strip.drag_in_progress {
+            z-index: 9999;
+        }
+        #side_bottom {
+        }
+        #edit_toggle {
+            height: 30px;
+            text-align: center;
+            width: 102px;
+            background: #000;
+            color: #fff;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-family: sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding-top: 10px;
+            padding-left: 6px;
+            cursor: pointer;
+        }
+        .gif_box {
+            width: 140px;
+            height: 100px;
+            background-position: center center;
+            background-size: cover;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+            float: left;
+            position: relative;
+            margin: 20px 0 0 20px;
+        }
+        #gif_inner {
+            width: 3000px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+        }
+        .drop_zone {
+            width: 600px;
+            height: 100%;
+            border: solid 1px #000;
+            background-size: cover;
+            background-position: center center;
+            float: left;
+            margin: 0;
+        }
+        .ui-draggable-dragging.over {
+            opacity: 0;
+        }
+        .drop_zone.ui-state-active {
+            background: red;
+        }
+        #scroll {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+    <script style="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script style="text/javascript" src="jquery-ui-1.9.1.custom.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready( function() {
+            $('#edit_toggle').click( function() {
+                $('#gif_block').toggleClass('expanded');
+            });
+            // Set up strip height
+            var window_height = $(window).height();
+            var strip_height = window_height - $('#gif_strip').height();
+            $('#gif_block').height(strip_height);
+            $('.gif_box').draggable({
+                opacity: 0.7, 
+                helper: "clone",
+                start: function() {
+                    $('#gif_strip').addClass('drag_in_progress');
+                },
+                stop: function() {
+                    $('#gif_strip').addClass('drag_in_progress');
+                },
+                drag: function() {
+                    if ( $('.ui-draggable-dragging').hasClass('over') ) {
+                        var left_pos = $('.ui-draggable-dragging').offset().left;
+                        var background_string = left_pos + 'px top';
+                        $('.drop-preview').css('background-position', background_string);
+                    }
+                },
+            });
+            $('#gif_inner').droppable({
+                over: function(e, ui){
+                    if ( !$(this).hasClass('dropped') ) {
+                        $('.ui-draggable-dragging').addClass('over');
+                        var gif = $('.ui-draggable-dragging').css('background-image');
+                        $(this).addClass('drop-preview').css('background-image', gif);
+                    }
+                },
+                out: function(e, ui){
+                    $('.drop-preview').css('background-image', 'none');
+                    $('.ui-draggable-dragging').removeClass('over');
+                },
+                drop: function(e, ui){
+                    $(this).removeClass('drop-preview');
+                }
+            });
+            $('#scroll').click(function() {
+                $('#gif_inner').animate({
+                    'left' : '-2000px'
+                }, 2000);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="header">drop the gif</div>
+    <div id="gif_block">
+        <div id="gif_inner">
+        </div>
+        <div id="edit_toggle">contribute</div>
+        <div id="scroll">scroll</div>
+    </div>
+    <div id="gif_strip">
+        <div id="side_bottom">
+            <div class="gif_box" style="background-image: url('kid.gif');"></div>
+            <div class="gif_box" style="background-image: url('dancing_girl.gif');"></div>
+            <div class="gif_box" style="background-image: url('dog_pat.gif');"></div>
+            <div class="gif_box" style="background-image: url('kid.gif');"></div>
+            <div class="gif_box" style="background-image: url('dancing_girl.gif');"></div>
+            <div class="gif_box" style="background-image: url('dog_pat.gif');"></div>
+            <div class="gif_box" style="background-image: url('kid.gif');"></div>
+            <div class="gif_box" style="background-image: url('dancing_girl.gif');"></div>
+            <div class="gif_box" style="background-image: url('dog_pat.gif');"></div>
+        </div>
+    </div>
+</body>
+</html>
