@@ -1,5 +1,4 @@
 function setUpDrag() {
-    console.log('set up');
     $('#edit_toggle').click( function() {
         $('#gif_block').toggleClass('expanded');
     });
@@ -14,6 +13,7 @@ function setUpDrag() {
             var background_image = $(this).css('background-image');
             var placer_height = $('#gif_inner').height();
             var placer_width = placer_height * 1.25;
+            var right_boundary = 0;
             $('#gif_strip').addClass('drag_in_progress');
             $('#gif_inner').append('<div id="placer"></div>');
             $('#placer').css({
@@ -57,10 +57,5 @@ function setUpDrag() {
                 'background-image': background_image
             }).removeClass('placed');
         }
-    });
-    $('#scroll').click(function() {
-        $('#gif_inner').animate({
-            'left' : '-2000px'
-        }, 2000);
     });
 };
