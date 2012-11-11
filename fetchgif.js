@@ -2,7 +2,7 @@ var JSON = require('JSON')
 
 var images = require('./images.json')
 
-var base_url = "http://s3.ijfoqjriw.com"
+var base_url = "http://alizweb.s3.amazonaws.com/gifmusicvideo/"
 
 module.exports = function (req, res) {
     gifs = {
