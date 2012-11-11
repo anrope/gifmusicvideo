@@ -1,3 +1,3 @@
 module.exports = function(req, res) {
-    res.render('play.html');
+    res.sendfile(__dirname + '/public/play.html');
 };
