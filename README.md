@@ -51,3 +51,7 @@ full song example:
         }
     ]
 }
+
+
+gif path on S3:
+http://alizweb.s3.amazonaws.com/gifmusicvideo/
