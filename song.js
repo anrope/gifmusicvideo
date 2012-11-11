@@ -17,8 +17,8 @@ module.exports = function(req, res) {
             });
             
             rds.set(song_key, song);
-        } else {
-            res.send(song)
         }
+
+        res.send(song)
     });
 };
