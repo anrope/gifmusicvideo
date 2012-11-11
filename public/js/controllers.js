@@ -87,7 +87,7 @@ function PlayerCtrl($scope, $http) {
                 console.log(gif);
                 var img = bufferImage(gif.gif);
                 setTimeout(function() {
-                    addImage(gif.gif, ms);
+                    addImage(gif.gif, gif.timestamp);
                 }, (loadBuffer - renderBuffer) * 1000);
                 nextImageInStrip++;
             }());
@@ -100,6 +100,12 @@ function PlayerCtrl($scope, $http) {
     }
 
     function addImage(url, ms) {
+        var pos = timestamp_to_position(ms);
+        
+        place_gif({
+            left: pos,
+            background_image: url
+        });
         console.log(arguments);
     }
 
