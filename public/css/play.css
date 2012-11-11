@@ -88,8 +88,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-size: auto 100%;
-        -webkit-transition: all 0.4s linear;
+        background-color: #444;
+        -webkit-transition: all 0.2s linear;
     }
     .drop_zone {
         width: 600px;
@@ -132,13 +132,34 @@
         background-color: rgba(255,255,255,0.6);
         margin-left: -50px;
         margin-top: -110px;
-        -webkit-transition: all 0.1s linear;
         opacity: 0;
+        box-shadow: none;
+        -webkit-transition: all 0.1s linear;
+    }
+    #play_icon {
+        border: solid 22px #111;
+        border-color: transparent transparent transparent #111;
+        margin: 29px 0 0 43px;
+    }
+    #pause_icon {
+        height: 34px;
+        width: 26px;
+        border-left: solid 10px #000;
+        border-right: solid 10px #000;
+        display: none;
+        margin: 34px 0 0 36px;
+    }
+    #gif_block.playing #play_icon {
+        display: none;
+    }
+    #gif_block.playing #pause_icon {
+        display: block;
     }
     #gif_block.expanded #play_pause {
         margin-top: -50px;
     }
     #gif_block:hover #play_pause {
         opacity: 1;
+        box-shadow: 0 1px 4px (rgba(0,0,0,0.6));
     }
     

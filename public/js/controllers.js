@@ -29,6 +29,7 @@ function PlayerCtrl($scope, $http) {
         if ($this.hasClass('playing')) {
             player.pause();
             $this.removeClass('playing');
+            $('#gif_inner').stop();
         } else {
             player.play();
             $this.addClass('playing');
