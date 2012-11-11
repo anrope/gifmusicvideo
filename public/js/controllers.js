@@ -54,7 +54,7 @@ function PlayerCtrl($scope, $http) {
             $this.removeClass('playing');
             $('#gif_inner').stop();
         } else {
-            player.play();
+            player.play(triggerTime);
             $this.addClass('playing');
             var inner_width = -(currentSong.duration * .2);
             $('#gif_inner').animate({
@@ -82,23 +82,25 @@ function PlayerCtrl($scope, $http) {
         var max = ms + loadBuffer*1000;
         var gifs = $scope.song.gifs;
         for(var i=nextImageInStrip; i < gifs.length && gifs[i].timestamp < max; i++) {
-            var gif = gifs[i];
-            var img = bufferImage(gif.url);
-            setTimeout(function() {
-                addImage(gif, ms);
-            }, (loadBuffer - renderBuffer) * 1000);
-            nextImageInStrip++;
+            (function() {
+                var gif = gifs[i];
+                console.log(gif);
+                var img = bufferImage(gif.gif);
+                setTimeout(function() {
+                    addImage(gif.gif, ms);
+                }, (loadBuffer - renderBuffer) * 1000);
+                nextImageInStrip++;
+            }());
         }
     }
 
     function bufferImage(url) {
         var img = new Image();
         img.src = url;
-        return img;
     }
 
-    function addImage(gif, ms) {
-        
+    function addImage(url, ms) {
+        console.log(arguments);
     }
 
     function removePastImages(ms) {
