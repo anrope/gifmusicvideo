@@ -1,6 +1,7 @@
 var JSON = require('JSON')
 
-var images = require('./images.json')
+//var images = require('./images.json')
+var images = require('./allimages.json')
 var specials = {
     '50-cent': require('./50-cent.json'),
     'bad-girls': require('./bad-girls.json'),
@@ -16,11 +17,9 @@ module.exports = function (req, res) {
 
     suggest_images = images
 
-    console.log(Object.keys(specials))
-
     for (sp in specials) {
-        console.log(sp)
         if (song_name.indexOf(sp) != -1) {
+            console.log(sp)
             suggest_images = specials[sp]
             break;
         }
