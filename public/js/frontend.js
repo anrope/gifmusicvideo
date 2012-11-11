@@ -1,5 +1,5 @@
 window.appConfig = {};
-if (window.location.host.indexOf('localhost') == -1) {
+if (window.location.host.indexOf('localhost') != -1) {
     appConfig.env = 'local';
     appConfig.context = 'djg.jit.su';
     appConfig.scClientId = 'b60ac37afa8549e97f3d5e7d0fce15f5';
