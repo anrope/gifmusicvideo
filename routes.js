@@ -8,6 +8,6 @@ module.exports = function(app) {
   app.all('/', index);
   app.post('/1/dropgif/:song_name', dropgif);
   app.get('/1/song/:song_name', song);
-  app.get('/:soundcloud_user/:song_name', play);
+  app.get('/song/:soundcloud_user/:song_name', play);
   app.get('/1/fetchgif', fetchgif);
 }
