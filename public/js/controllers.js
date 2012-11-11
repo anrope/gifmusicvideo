@@ -1,4 +1,10 @@
 function PlayerCtrl($scope, $http) {
+    function bufferImage(url) {
+        console.log('buffering ' + url);
+        var img = new Image();
+        img.src = url;
+    }
+    
     var m = window.location.pathname.match(/\/song\/([^\/]+)\/([^\/]+)/);
     if (m.length < 2) {
         alert('Invalid song path')
@@ -20,6 +26,10 @@ function PlayerCtrl($scope, $http) {
     var available_images = [];
     $http.get(suggest_api).success(function(data) {
         $scope.base_url = data.base_url;
+
+        for (gif in data.images) {
+            bufferImage(data.base_url + gif.filename);
+        }
 
         image_slots = Math.floor(($('#side_bottom').width() / 140) - 2);
         // image_slots = 3;
@@ -79,14 +89,9 @@ function PlayerCtrl($scope, $http) {
     });
 
     var nextImageInStrip = 0;
-    var lastRemoveCheck = 0;
     function triggerTime(ms) {
         renderNewImages(ms);
-        // Only remove images every second
-        if (ms - 1000 > lastRemoveCheck) {
-            lastRemoveCheck = ms;
-            removePastImages(ms);
-        }
+        removePastImages(ms);
     }
 
     var imageBuffer = [];
@@ -111,10 +116,7 @@ function PlayerCtrl($scope, $http) {
         }
     }
 
-    function bufferImage(url) {
-        var img = new Image();
-        img.src = url;
-    }
+
 
     function addImage(url, ms) {
         var pos = timestamp_to_position(ms);
@@ -129,7 +131,7 @@ function PlayerCtrl($scope, $http) {
     function removePastImages(ms) {
         $('.gif_placed_box').each(function() {
             var $item = $(this);
-            var rightPosition = parseInt($item.css('left')) + parseInt($item.css('width'));
+            var rightPosition = parseInt($item.css('left')) - timestamp_to_position(ms) + parseInt($item.css('width'));
             if (rightPosition < 0) {
                 $item.remove();
             }
