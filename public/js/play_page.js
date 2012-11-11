@@ -91,12 +91,13 @@ function setUpDrag() {
 
 // Place a new gif on the strip
 function place_gif (args) {
-    $placer = $('#placer');
+    var placer_height = $('#gif_inner').height();
+    var placer_width = placer_height * 1.25;
     $('#gif_inner').append('<div class="gif_placed_box placed"></div>');
     $('.placed').css({
         'left': args.left,
-        'height': $placer.height(),
-        'width': $placer.width(),
+        'height': placer_height,
+        'width': placer_width,
         'background-image': 'url(' + args.background_url + ')'
     }).removeClass('placed');
 }
