@@ -17,7 +17,8 @@
 </div>
 <div id="gif_strip">
     <div id="side_bottom">
-        <div ng-repeat="gif in suggest.images" class="gif_box" style="background-image: url({{suggest.base_url}}{{gif.filename}});"></div>
+        <div ng-repeat="gif in images" class="gif_box" style="background-image: url({{base_url}}{{gif.filename}});"></div>
+        <a id="suggest_more" style="background-image: url(/img/arrow_button_right.png);" href="#"></a>
     </div>
 </div>
 

@@ -18,8 +18,31 @@ function PlayerCtrl($scope, $http) {
     suggest_api = 'http://' + appConfig.context + '/1/suggest/' + 
         user + "/" + songname + "/";
     $http.get(suggest_api).success(function(data) {
-        $scope.suggest = data;
+        $scope.base_url = data.base_url;
+
+        image_slots = Math.floor(($('#side_bottom').width() / 140) - 5);
+        console.log('image_slots ' + image_slots + ' ' + $('#side_bottom').width());
+
+        $scope.images = data.images.slice(0, image_slots);
+        available_images = data.images.slice(image_slots);
+
         setTimeout(onReadyCallback, 0);
+    });
+
+    $('#suggest_more').click(function() {
+        $('.gif_box').each(function(index) {
+            /*
+            new_image = available_images.pop()
+            if (isempty(new_image)) {
+                suggest_more();
+                new_image = '/img/loading.gif';
+            };
+            */
+            new_image = "/img/loading.gif"
+            $(this).attr('style', 'background-image: url(' + new_image + ');');
+        });
+
+        return false;
     });
 
     player.init(currentSong);
@@ -96,17 +119,28 @@ function PlayerCtrl($scope, $http) {
         $('#gif_inner').width(inner_width);
     }
     
+    var position_to_timestamp = function(position) {
+        return (position / $('#gif_inner').width()) * currentSong.duration;
+    };
+    
+    var timestamp_to_position = function(timestamp) {
+        return (timestamp / currentSong.duration) * $('#gif_inner').width();
+    };
+    
     // Post gif timestamp
     $scope.$on('gmbomt:gif_dropped', function(e, args) {
-        post_gif_timestamp(args.gif_url);
+        post_gif_timestamp({
+            gif_url: args.gif_url,
+            position: args.position
+        });
     });
-    var post_gif_timestamp = function(gif_url) {
+    var post_gif_timestamp = function(args) {
         var url = '/1/dropgif/' + user + '/' + songname;
         $.post(url,
             {
                 user: user,
-                gif: gif_url,
-                timestamp: -999,
+                gif: args.gif_url,
+                timestamp: position_to_timestamp(args.position),
                 row: 1
             },
             function(data) {
