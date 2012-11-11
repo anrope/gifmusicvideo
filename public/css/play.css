@@ -1,19 +1,37 @@
     * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
     
     #header {
-        font-size: 40px;
         font-weight: bold;
         font-family: sans-serif;
         position: absolute;
-        z-index: 888;
+        float: left;
+        z-index: 99999;
+        left: 0;
+        top: 0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+    #header #logo {
+        font-size: 28px;
+        background-color: #00cd62;
+        padding: 14px;
+        float: left;
+        line-height: 1em;
+    }
+    #header #song_name {
+        font-size: 28px;
+        background-color: #111;
+        color: #fff;
+        padding: 14px;
+        float: left;
+        font-weight: normal;
+        line-height: 1em;
     }
     #gif_block {
-        position: absolute;
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        background: #444;
+        background-size: auto 100%;
         z-index: 9999;
         -webkit-transition: all 0.1s linear;
         overflow: hidden;
@@ -82,8 +100,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-size: auto 100%;
-        background-repeat: no-repeat;
+        background-color: #444;
+        -webkit-transition: all 0.2s linear;
     }
     .drop_zone {
         width: 600px;
@@ -95,8 +113,6 @@
         margin: 0;
     }
     .ui-draggable-dragging.over {
-        opacity: 0;
-        visibility: hidden;
     }
     .drop_zone.ui-state-active {
         background: red;
@@ -123,3 +139,45 @@
         bottom: 0;
         left: 0;
     }
+    #play_pause {
+        width: 100px;
+        height: 100px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        border-radius: 100px;
+        background-color: rgba(255,255,255,0.6);
+        margin-left: -50px;
+        margin-top: -110px;
+        opacity: 0;
+        box-shadow: none;
+        -webkit-transition: all 0.1s linear;
+    }
+    #play_icon {
+        border: solid 22px #111;
+        border-color: transparent transparent transparent #111;
+        margin: 29px 0 0 43px;
+    }
+    #pause_icon {
+        height: 34px;
+        width: 26px;
+        border-left: solid 10px #000;
+        border-right: solid 10px #000;
+        display: none;
+        margin: 34px 0 0 36px;
+    }
+    #gif_block.playing #play_icon {
+        display: none;
+    }
+    #gif_block.playing #pause_icon {
+        display: block;
+    }
+    #gif_block.expanded #play_pause {
+        margin-top: -50px;
+    }
+    #gif_block:hover #play_pause {
+        opacity: 1;
+        box-shadow: 0 1px 4px (rgba(0,0,0,0.6));
+    }
+    
+>>>>>>> 15b984c83df5b7f566152ff3605ab34e511efd8d

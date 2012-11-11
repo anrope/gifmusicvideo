@@ -1,5 +1,4 @@
 function setUpDrag() {
-    console.log('set up');
     $('#edit_toggle').click( function() {
         $('#gif_block').toggleClass('expanded');
     });
@@ -27,7 +26,8 @@ function setUpDrag() {
             $('#gif_strip').addClass('drag_in_progress');
         },
         drag: function() {
-            var left_pos = ($('.ui-draggable-dragging').offset().left - 120);
+            var scrolled = parseInt($('#gif_inner').css('left'), 10);
+            var left_pos = ($('.ui-draggable-dragging').offset().left - 120) - scrolled;
             if ( left_pos < 0 ) {
                 left_pos = 0;
             }
@@ -56,11 +56,14 @@ function setUpDrag() {
                 'width': width,
                 'background-image': background_image
             }).removeClass('placed');
+            
+            // Send angular event to post gif timestamp
+            var scope = angular.element($('body')).scope();
+            scope.$apply(function() {
+                scope.$broadcast('gmbomt:gif_dropped', {
+                    gif_url: background_image
+                });
+            });
         }
-    });
-    $('#scroll').click(function() {
-        $('#gif_inner').animate({
-            'left' : '-2000px'
-        }, 2000);
     });
 };

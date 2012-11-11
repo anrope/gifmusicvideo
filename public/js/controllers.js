@@ -6,7 +6,6 @@ function PlayerCtrl($scope, $http) {
     }
     var user = m[1];
     var songname = m[2];
-    console.log(user, songname);
 
     // Get GIF data for the song
     song_api = 'http://' + appConfig.context + '/1/song/' + 
@@ -27,7 +26,7 @@ function PlayerCtrl($scope, $http) {
         $scope.images = data.images.slice(0, image_slots);
         available_images = data.images.slice(image_slots);
 
-        setTimeout(setUpDrag, 0);
+        setTimeout(onReadyCallback, 0);
     });
 
     $('#suggest_more').click(function() {
@@ -53,9 +52,40 @@ function PlayerCtrl($scope, $http) {
         if ($this.hasClass('playing')) {
             player.pause();
             $this.removeClass('playing');
+            $('#gif_inner').stop();
         } else {
             player.play();
             $this.addClass('playing');
+            var inner_width = -(currentSong.duration * .2);
+            $('#gif_inner').animate({
+                'left' : inner_width
+            }, currentSong.duration, 'linear');
         }
     });
+    
+    function onReadyCallback() {
+        setUpDrag();
+        var inner_width = (currentSong.duration * .2);
+        $('#gif_inner').width(inner_width);
+    }
+    
+    // Post gif timestamp
+    $scope.$on('gmbomt:gif_dropped', function(e, args) {
+        post_gif_timestamp(args.gif_url);
+    });
+    var post_gif_timestamp = function(gif_url) {
+        var url = '/1/dropgif/' + user + '/' + songname;
+        $.post(url,
+            {
+                user: user,
+                gif: gif_url,
+                timestamp: -999,
+                row: 1
+            },
+            function(data) {
+                if (data.match(/true/)) {
+                    console.log('POSTED TIMESTAMP YO');
+            }
+        });
+    };
 }

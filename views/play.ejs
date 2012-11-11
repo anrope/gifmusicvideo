@@ -1,11 +1,19 @@
 <% angular_controller = "PlayerCtrl" %>
 
-<div id="header">drop the gif</div>
+<div id="header">
+    <div id="logo">drop the gif</div>
+    <div id="song_name"><%- song_name %></div>
+</div>
 <div id="gif_block">
     <div id="gif_inner">
     </div>
+    <div id="play_pause">
+        <div id="play_container" class="play_ready">
+            <div id="play_icon"></div>
+            <div id="pause_icon"></div>
+        </div>
+    </div>
     <div id="edit_toggle">contribute</div>
-    <div id="scroll">scroll</div>
 </div>
 <div id="gif_strip">
     <div id="side_bottom">
