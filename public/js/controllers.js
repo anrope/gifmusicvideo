@@ -6,7 +6,6 @@ function PlayerCtrl($scope, $http) {
     }
     var user = m[1];
     var songname = m[2];
-    console.log(user, songname);
 
     // Get GIF data for the song
     song_api = 'http://' + appConfig.context + '/1/song/' + 
@@ -20,7 +19,7 @@ function PlayerCtrl($scope, $http) {
         user + "/" + songname + "/";
     $http.get(suggest_api).success(function(data) {
         $scope.suggest = data;
-        setTimeout(setUpDrag, 0);
+        setTimeout(onReadyCallback, 0);
     });
 
     player.init(currentSong);
@@ -30,16 +29,26 @@ function PlayerCtrl($scope, $http) {
         if ($this.hasClass('playing')) {
             player.pause();
             $this.removeClass('playing');
+            $('#gif_inner').stop();
         } else {
             player.play();
             $this.addClass('playing');
+            var inner_width = -(currentSong.duration * .2);
+            $('#gif_inner').animate({
+                'left' : inner_width
+            }, currentSong.duration, 'linear');
         }
     });
 
     var nextImageInStrip = 0;
+    var lastRemoveCheck = 0;
     function triggerTime(ms) {
         renderNewImages(ms);
-        removePastImages(ms);
+        // Only remove images every second
+        if (ms - 1000 > lastRemoveCheck) {
+            lastRemoveCheck = ms;
+            removePastImages(ms);
+        }
     }
 
     var imageBuffer = [];
@@ -73,12 +82,37 @@ function PlayerCtrl($scope, $http) {
         $('.gif_placed_box').each(function() {
             var $item = $(this);
             var rightPosition = parseInt($item.css('left')) + parseInt($item.css('width'));
-            if (rightPosition) {
-                
+            if (rightPosition < 0) {
+                $item.remove();
             }
         });
         
     }
 
-   
+    
+    function onReadyCallback() {
+        setUpDrag();
+        var inner_width = (currentSong.duration * .2);
+        $('#gif_inner').width(inner_width);
+    }
+    
+    // Post gif timestamp
+    $scope.$on('gmbomt:gif_dropped', function(e, args) {
+        post_gif_timestamp(args.gif_url);
+    });
+    var post_gif_timestamp = function(gif_url) {
+        var url = '/1/dropgif/' + user + '/' + songname;
+        $.post(url,
+            {
+                user: user,
+                gif: gif_url,
+                timestamp: -999,
+                row: 1
+            },
+            function(data) {
+                if (data.match(/true/)) {
+                    console.log('POSTED TIMESTAMP YO');
+            }
+        });
+    };
 }
