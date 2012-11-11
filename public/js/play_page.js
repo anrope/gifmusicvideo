@@ -56,7 +56,7 @@ function setUpDrag() {
             var scope = angular.element($('body')).scope();
             scope.$apply(function() {
                 scope.$broadcast('gmbomt:gif_dropped', {
-                    gif_url: background_image,
+                    gif_url: background_image.replace('url(', '').replace(')', ''),
                     position: parseInt($('#gif_inner').children().last().css('left'), 10)
                 });
             });
