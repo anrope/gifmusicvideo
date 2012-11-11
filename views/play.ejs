@@ -1,0 +1,14 @@
+<% angular_controller = "PlayerCtrl" %>
+
+<div id="header">drop the gif</div>
+<div id="gif_block">
+    <div id="gif_inner">
+    </div>
+    <div id="edit_toggle">contribute</div>
+    <div id="scroll">scroll</div>
+</div>
+<div id="gif_strip">
+    <div id="side_bottom">
+        <div ng-repeat="gif in suggest.images" class="gif_box" style="background-image: url({{suggest.base_url}}{{gif.filename}});"></div>
+    </div>
+</div>
