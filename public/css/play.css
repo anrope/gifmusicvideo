@@ -98,8 +98,13 @@
         position: absolute;
         top: 0;
         left: 0;
+        opacity: 0;
+        -webkit-transition: all 0.1s linear;
         background-size: cover;
         background-position: center center;
+    }
+    #placer.active {
+        opacity: 1;
     }
     #scroll {
         position: absolute;
