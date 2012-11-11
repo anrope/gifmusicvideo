@@ -11,9 +11,8 @@
     "scripts": {
         "start": "node server.js"
     },
-    "version": "0.0.1",
-    "engine": "node 0.8.14",
+    "version": "0.0.1-6",
     "engines": {
-        "node": "0.8.14"
+        "node": "0.8"
     }
 }
