@@ -1,5 +1,17 @@
 GIF music video
 
+home page:
+djg.jit.su
+
+song pages:
+djg.jit.su/gangnam-style/
+djg.jit.su/bangarang/
+
+api endpoints:
+djg.jit.su/1/fetchgifs
+djg.jit.su/1/dropgif/<song_name>/
+djg.jit.su/1/song/<song_name>/
+
 song object:
 {
     'project_id': 'my remix of gangnam style',
