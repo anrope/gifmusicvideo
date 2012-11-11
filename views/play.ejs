@@ -1,10 +1,10 @@
 <% angular_controller = "PlayerCtrl" %>
 
 <div id="header">
-    <div id="logo">gif me baby one more time</div>
+    <div id="logo">GIF me baby one more time</div>
     <div id="song_name"><%- song_name %></div>
 </div>
-<div id="gif_block">
+<div id="gif_block" class="expanded">
     <div id="gif_inner">
     </div>
     <div id="play_pause">
@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<div id="edit_toggle">focus</div>
+<div id="edit_toggle">contribute</div>
 <div id="gif_strip">
     <div id="side_bottom">
         <div ng-repeat="gif in images" class="gif_box" style="background-image: url({{base_url}}{{gif.filename}});"></div>
