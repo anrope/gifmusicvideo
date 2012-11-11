@@ -27,9 +27,9 @@ function PlayerCtrl($scope, $http) {
     $http.get(suggest_api).success(function(data) {
         $scope.base_url = data.base_url;
 
-        for (gif in data.images) {
-            bufferImage(data.base_url + gif.filename);
-        }
+        //for (gif in data.images) {
+        //    bufferImage(data.base_url + gif.filename);
+        //}
 
         image_slots = Math.floor(($('#side_bottom').width() / 140) - 2);
         // image_slots = 3;
