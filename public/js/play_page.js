@@ -46,13 +46,9 @@ function setUpDrag() {
         drop: function(e, ui){
             $placer = $('#placer');
             var left_pos = $placer.css('left');
-            var height = $placer.height();
-            var width = $placer.width();
             var background_image = $placer.css('background-image');
             place_gif({
                 left: left_pos,
-                height: height,
-                width: width,
                 background_image: background_image
             });
             
@@ -74,8 +70,8 @@ function place_gif (args) {
     $('#gif_inner').append('<div class="gif_placed_box placed"></div>');
     $('.placed').css({
         'left': args.left,
-        'height': args.height || $placer.height(),
-        'width': args.width || $placer.width(),
+        'height': $placer.height(),
+        'width': $placer.width(),
         'background-image': args.background_image
     }).removeClass('placed');
 }
