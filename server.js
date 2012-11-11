@@ -1,9 +1,17 @@
 var express = require('express');
 var redis = require('redis');
+var engine = require('ejs-locals');
 
 var app = express();
 app.use(express.bodyParser());
 app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+app.engine('ejs', engine);
+app.locals({
+    _layoutFile: true
+});
 
 var routes = require('./routes')(app);
 
