@@ -17,7 +17,7 @@ function PlayerCtrl($scope, $http) {
     // Get GIF data for the song
     suggest_api = 'http://' + appConfig.context + '/1/suggest/' + 
         user + "/" + songname + "/";
-    var available_images;
+    var available_images = [];
     $http.get(suggest_api).success(function(data) {
         $scope.base_url = data.base_url;
 
@@ -26,7 +26,7 @@ function PlayerCtrl($scope, $http) {
         console.log('image_slots ' + image_slots + ' ' + $('#side_bottom').width());
 
         $scope.images = data.images.slice(0, image_slots);
-        available_images = data.images.slice(image_slots);
+        available_images.push.apply(available_images, data.images.slice(image_slots));
 
         setTimeout(onReadyCallback, 0);
     });
@@ -35,21 +35,25 @@ function PlayerCtrl($scope, $http) {
     console.log(available_images)
 
     $('#suggest_more').click(function() {
+        console.log('available images on suggest more');
+        console.log(available_images);
         $('.gif_box').each(function(index) {
-            new_image = available_images.pop()
-            if (!new_image) {
+            new_image_obj = available_images.pop()
+            if (!new_image_obj) {
                 $http.get(suggest_api).success(function(data) {
                     $('.gif_box').each(function(index) {
-                        if ($(this).attr('style').indexOf('loading.gif') == -1) {
-                            $(this).attr('style', 'background-image: url(' + data.images.pop() + ');');
+                        if ($(this).attr('style').indexOf('loading.gif') != -1) {
+                            new_image = $scope.base_url + data.images.pop().filename;
+                            $(this).attr('style', 'background-image: url(' + new_image + ');');
                         };
                     });
 
                     available_images.push.apply(available_images, data.images);
                 });
                 new_image = '/img/loading.gif';
-            };
-            new_image = "/img/loading.gif"
+            } else {
+                new_image = $scope.base_url + new_image_obj.filename;
+            }
             $(this).attr('style', 'background-image: url(' + new_image + ');');
         });
 
