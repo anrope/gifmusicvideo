@@ -142,6 +142,9 @@ function PlayerCtrl($scope, $http) {
         setUpDrag();
         var inner_width = (currentSong.duration * .2);
         $('#gif_inner').width(inner_width);
+        setTimeout(function() {
+            $('#gif_block').trigger('click');
+        }, 1000);
     }
     
     var position_to_timestamp = function(position) {
