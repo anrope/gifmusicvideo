@@ -1,7 +1,14 @@
+var JSON = require('JSON')
+
 var images = require('./images.json')
 
-var s3_base = "http://s3.ijfoqjriw.com"
+var base_url = "http://s3.ijfoqjriw.com"
 
 module.exports = function (req, res) {
-    res.send(images);
+    gifs = {
+        "base_url": base_url,
+        "images": images
+    }
+
+    res.send(JSON.stringify(gifs));
 };
