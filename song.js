@@ -5,18 +5,18 @@ var storage = require('./storage')
 module.exports = function(req, res) {
     // Get gif placement info from the backend for a song
     rds = GLOBAL.rds;
-    song_id = req.params.song_id;
-    song_key = storage.songMakeKey(song_id);
+    song_name = req.params.song_name;
+    song_id = req.body.song_id;
+    song_key = storage.songMakeKey(song_name);
     rds.get(song_key, function (err, song) {
         if (!song) {
             song = JSON.stringify({
                 'project_id': 'whatever',
-                'soundcloud_id': 2341345,
+                'soundcloud_id': song_id,
                 'gifs': []
             });
-
-            //rds.set(song_key, song, function (err) {
-            //}
+            
+            rds.set(song_key, song);
         } else {
             res.send(song)
         }
