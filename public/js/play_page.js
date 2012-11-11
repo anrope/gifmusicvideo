@@ -49,13 +49,12 @@ function setUpDrag() {
             var height = $placer.height();
             var width = $placer.width();
             var background_image = $placer.css('background-image');
-            $('#gif_inner').append('<div class="gif_placed_box placed"></div>');
-            $('.placed').css({
-                'left': left_pos,
-                'height': height,
-                'width': width,
-                'background-image': background_image
-            }).removeClass('placed');
+            place_gif({
+                left: left_pos,
+                height: height,
+                width: width,
+                background_image: background_image
+            });
             
             // Send angular event to post gif timestamp
             var scope = angular.element($('body')).scope();
@@ -67,4 +66,16 @@ function setUpDrag() {
             });
         }
     });
-};
+}
+
+// Place a new gif on the strip
+function place_gif (args) {
+    $placer = $('#placer');
+    $('#gif_inner').append('<div class="gif_placed_box placed"></div>');
+    $('.placed').css({
+        'left': args.left,
+        'height': args.height || $placer.height(),
+        'width': args.width || $placer.width(),
+        'background-image': args.background_image
+    }).removeClass('placed');
+}
