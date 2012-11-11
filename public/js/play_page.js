@@ -70,21 +70,18 @@ function setUpDrag() {
         drop: function(e, ui){
             $placer = $('#placer');
             var left_pos = $placer.css('left');
-            var height = $placer.height();
-            var width = $placer.width();
             var background_image = $placer.css('background-image');
+            var background_url = background_image.replace('url(', '').replace(')', '');
             place_gif({
                 left: left_pos,
-                height: height,
-                width: width,
-                background_image: background_image
+                background_url: background_url
             });
             
             // Send angular event to post gif timestamp
             var scope = angular.element($('body')).scope();
             scope.$apply(function() {
                 scope.$broadcast('gmbomt:gif_dropped', {
-                    gif_url: background_image,
+                    gif_url: background_url,
                     position: parseInt($('#gif_inner').children().last().css('left'), 10)
                 });
             });
@@ -98,8 +95,8 @@ function place_gif (args) {
     $('#gif_inner').append('<div class="gif_placed_box placed"></div>');
     $('.placed').css({
         'left': args.left,
-        'height': args.height || $placer.height(),
-        'width': args.width || $placer.width(),
-        'background-image': args.background_image
+        'height': $placer.height(),
+        'width': $placer.width(),
+        'background-image': 'url(' + args.background_url + ')'
     }).removeClass('placed');
 }
