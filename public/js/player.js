@@ -1,5 +1,7 @@
 var player = (function() {
     var sound;
+    
+    var interval;
 
     SC.initialize({
         client_id: appConfig.scClientId,
@@ -12,11 +14,15 @@ var player = (function() {
                 sound = s;
             });
         },
-        play: function() {
+        play: function(ticker) {
             sound.play();
+            interval = setInterval(function() {
+                ticker(sound.position);
+            }, 500);
         },
         pause: function() {
             sound.pause();
+            clearInterval(interval);
         }
     };
 }());

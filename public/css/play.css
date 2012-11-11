@@ -11,14 +11,14 @@
         box-shadow: 0 1px 2px rgba(0,0,0,0.4);
     }
     #header #logo {
-        font-size: 28px;
+        font-size: 18px;
         background-color: #00cd62;
         padding: 14px;
         float: left;
         line-height: 1em;
     }
     #header #song_name {
-        font-size: 28px;
+        font-size: 18px;
         background-color: #111;
         color: #fff;
         padding: 14px;
@@ -34,6 +34,7 @@
         background-size: auto 100%;
         z-index: 9999;
         -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
         overflow: hidden;
     }
     #gif_block.expanded {
@@ -54,14 +55,20 @@
         z-index: 9999;
     }
     #suggest_more {
-        width: 100px;
+        width: 40px;
         height: 100px;
-        background-position: center center;
-        background-size: cover;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.4);
         float: left;
         position: relative;
         margin: 20px 0 0 20px;
+        background-color: #666;
+    }
+    #suggest_arrow {
+        border: solid 12px #ddd;
+        border-color: transparent transparent transparent #222;
+        margin: 39px 0 0 14px;
+    }
+    #suggest_more:hover {
+        background-color: #999;
     }
     #side_bottom {
     }
@@ -102,6 +109,7 @@
         left: 0;
         background-color: #444;
         -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
     }
     .drop_zone {
         width: 600px;
@@ -152,6 +160,7 @@
         opacity: 0;
         box-shadow: none;
         -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
     }
     #play_icon {
         border: solid 22px #111;
@@ -180,4 +189,3 @@
         box-shadow: 0 1px 4px (rgba(0,0,0,0.6));
     }
     
->>>>>>> 15b984c83df5b7f566152ff3605ab34e511efd8d
