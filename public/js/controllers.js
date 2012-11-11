@@ -121,7 +121,7 @@ function PlayerCtrl($scope, $http) {
         
         place_gif({
             left: pos,
-            background_image: url
+            background_url: url
         });
         console.log(url, pos);
     }
