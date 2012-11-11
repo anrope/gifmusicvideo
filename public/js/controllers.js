@@ -21,8 +21,8 @@ function PlayerCtrl($scope, $http) {
     $http.get(suggest_api).success(function(data) {
         $scope.base_url = data.base_url;
 
-        //image_slots = Math.floor(($('#side_bottom').width() / 140) - 9);
-        image_slots = 3;
+        image_slots = Math.floor(($('#side_bottom').width() / 140) - 2);
+        //image_slots = 3;
         console.log('image_slots ' + image_slots + ' ' + $('#side_bottom').width());
 
         $scope.images = data.images.slice(0, image_slots);
