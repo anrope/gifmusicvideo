@@ -89,14 +89,9 @@ function PlayerCtrl($scope, $http) {
     });
 
     var nextImageInStrip = 0;
-    var lastRemoveCheck = 0;
     function triggerTime(ms) {
         renderNewImages(ms);
-        // Only remove images every second
-        if (ms - 1000 > lastRemoveCheck) {
-            lastRemoveCheck = ms;
-            removePastImages(ms);
-        }
+        removePastImages(ms);
     }
 
     var imageBuffer = [];
@@ -136,7 +131,7 @@ function PlayerCtrl($scope, $http) {
     function removePastImages(ms) {
         $('.gif_placed_box').each(function() {
             var $item = $(this);
-            var rightPosition = parseInt($item.css('left')) + parseInt($item.css('width'));
+            var rightPosition = parseInt($item.css('left')) - timestamp_to_position(ms) + parseInt($item.css('width'));
             if (rightPosition < 0) {
                 $item.remove();
             }
@@ -149,6 +144,9 @@ function PlayerCtrl($scope, $http) {
         setUpDrag();
         var inner_width = (currentSong.duration * .2);
         $('#gif_inner').width(inner_width);
+        setTimeout(function() {
+            $('#gif_block').trigger('click');
+        }, 1000);
     }
     
     var position_to_timestamp = function(position) {
