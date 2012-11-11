@@ -28,14 +28,13 @@
     }
     #gif_block {
         position: absolute;
-        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        background: #444;
+        background-size: auto 100%;
         z-index: 9999;
         -webkit-transition: all 0.1s linear;
-        overflow: auto;
+        overflow: hidden;
     }
     #gif_block.expanded {
         height: 100% !important;
@@ -90,7 +89,7 @@
         top: 0;
         left: 0;
         background-size: auto 100%;
-        background-repeat: no-repeat;
+        -webkit-transition: all 0.4s linear;
     }
     .drop_zone {
         width: 600px;
@@ -123,8 +122,23 @@
     #placer.active {
         opacity: 1;
     }
-    #scroll {
-        position: absolute;
-        bottom: 0;
-        left: 0;
+    #play_pause {
+        width: 100px;
+        height: 100px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        border-radius: 100px;
+        background-color: rgba(255,255,255,0.6);
+        margin-left: -50px;
+        margin-top: -110px;
+        -webkit-transition: all 0.1s linear;
+        opacity: 0;
     }
+    #gif_block.expanded #play_pause {
+        margin-top: -50px;
+    }
+    #gif_block:hover #play_pause {
+        opacity: 1;
+    }
+    

@@ -13,7 +13,6 @@ function setUpDrag() {
             var background_image = $(this).css('background-image');
             var placer_height = $('#gif_inner').height();
             var placer_width = placer_height * 1.25;
-            var right_boundary = 0;
             $('#gif_strip').addClass('drag_in_progress');
             $('#gif_inner').append('<div id="placer"></div>');
             $('#placer').css({
@@ -27,7 +26,8 @@ function setUpDrag() {
             $('#gif_strip').addClass('drag_in_progress');
         },
         drag: function() {
-            var left_pos = ($('.ui-draggable-dragging').offset().left - 120);
+            var scrolled = parseInt($('#gif_inner').css('left'), 10);
+            var left_pos = ($('.ui-draggable-dragging').offset().left - 120) - scrolled;
             if ( left_pos < 0 ) {
                 left_pos = 0;
             }

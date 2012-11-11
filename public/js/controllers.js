@@ -6,7 +6,6 @@ function PlayerCtrl($scope, $http) {
     }
     var user = m[1];
     var songname = m[2];
-    console.log(user, songname);
 
     // Get GIF data for the song
     song_api = 'http://' + appConfig.context + '/1/song/' + 
@@ -20,7 +19,7 @@ function PlayerCtrl($scope, $http) {
         user + "/" + songname + "/";
     $http.get(suggest_api).success(function(data) {
         $scope.suggest = data;
-        setTimeout(setUpDrag, 0);
+        setTimeout(onReadyCallback, 0);
     });
 
     player.init(currentSong);
@@ -33,6 +32,16 @@ function PlayerCtrl($scope, $http) {
         } else {
             player.play();
             $this.addClass('playing');
+            var inner_width = -(currentSong.duration * .2);
+            $('#gif_inner').animate({
+                'left' : inner_width
+            }, currentSong.duration, 'linear');
         }
     });
+    
+    function onReadyCallback() {
+        setUpDrag();
+        var inner_width = (currentSong.duration * .2);
+        $('#gif_inner').width(inner_width);
+    }
 }
