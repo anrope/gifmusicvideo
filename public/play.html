@@ -136,9 +136,17 @@
         }
         .ui-draggable-dragging.over {
             opacity: 0;
+            visibility: hidden;
         }
         .drop_zone.ui-state-active {
             background: red;
+        }
+        #placer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center center;
         }
         #scroll {
             position: absolute;
@@ -161,33 +169,33 @@
                 opacity: 0.7, 
                 helper: "clone",
                 start: function() {
+                    var background_image = $(this).css('background-image');
+                    var placer_height = $('#gif_inner').height();
+                    var placer_width = placer_height * 1.25;
                     $('#gif_strip').addClass('drag_in_progress');
+                    $('#gif_inner').append('<div id="placer"></div>');
+                    $('#placer').css({
+                        'background-image': background_image,
+                        'height': placer_height,
+                        'width': placer_width
+                    });
                 },
                 stop: function() {
                     $('#gif_strip').addClass('drag_in_progress');
                 },
                 drag: function() {
-                    if ( $('.ui-draggable-dragging').hasClass('over') ) {
-                        var left_pos = $('.ui-draggable-dragging').offset().left;
-                        var background_string = left_pos + 'px top';
-                        $('.drop-preview').css('background-position', background_string);
-                    }
+                    var left_pos = $('.ui-draggable-dragging').offset().left;
+                    $('#placer').css('left', left_pos);
                 },
             });
             $('#gif_inner').droppable({
                 over: function(e, ui){
-                    if ( !$(this).hasClass('dropped') ) {
-                        $('.ui-draggable-dragging').addClass('over');
-                        var gif = $('.ui-draggable-dragging').css('background-image');
-                        $(this).addClass('drop-preview').css('background-image', gif);
-                    }
+                    $('.ui-draggable-dragging').addClass('over');
                 },
                 out: function(e, ui){
-                    $('.drop-preview').css('background-image', 'none');
                     $('.ui-draggable-dragging').removeClass('over');
                 },
                 drop: function(e, ui){
-                    $(this).removeClass('drop-preview');
                 }
             });
             $('#scroll').click(function() {
