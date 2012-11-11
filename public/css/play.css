@@ -35,7 +35,19 @@
     #gif_strip.drag_in_progress {
         z-index: 9999;
     }
+    #suggest_more {
+        width: 100px;
+        height: 100px;
+        background-position: center center;
+        background-size: cover;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+        float: left;
+        position: relative;
+        margin: 20px 0 0 20px;
+    }
     #side_bottom {
+    }
+    #suggest_right {
     }
     #edit_toggle {
         height: 30px;

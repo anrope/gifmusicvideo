@@ -19,8 +19,31 @@ function PlayerCtrl($scope, $http) {
     suggest_api = 'http://' + appConfig.context + '/1/suggest/' + 
         user + "/" + songname + "/";
     $http.get(suggest_api).success(function(data) {
-        $scope.suggest = data;
+        $scope.base_url = data.base_url;
+
+        image_slots = Math.floor(($('#side_bottom').width() / 140) - 5);
+        console.log('image_slots ' + image_slots + ' ' + $('#side_bottom').width());
+
+        $scope.images = data.images.slice(0, image_slots);
+        available_images = data.images.slice(image_slots);
+
         setTimeout(setUpDrag, 0);
+    });
+
+    $('#suggest_more').click(function() {
+        $('.gif_box').each(function(index) {
+            /*
+            new_image = available_images.pop()
+            if (isempty(new_image)) {
+                suggest_more();
+                new_image = '/img/loading.gif';
+            };
+            */
+            new_image = "/img/loading.gif"
+            $(this).attr('style', 'background-image: url(' + new_image + ');');
+        });
+
+        return false;
     });
 
     player.init(currentSong);
