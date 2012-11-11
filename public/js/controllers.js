@@ -69,17 +69,28 @@ function PlayerCtrl($scope, $http) {
         $('#gif_inner').width(inner_width);
     }
     
+    var position_to_timestamp = function(position) {
+        return (position / $('#gif_inner').width()) * currentSong.duration;
+    };
+    
+    var timestamp_to_position = function(timestamp) {
+        return (timestamp / currentSong.duration) * $('#gif_inner').width();
+    };
+    
     // Post gif timestamp
     $scope.$on('gmbomt:gif_dropped', function(e, args) {
-        post_gif_timestamp(args.gif_url);
+        post_gif_timestamp({
+            gif_url: args.gif_url,
+            position: args.position
+        });
     });
-    var post_gif_timestamp = function(gif_url) {
+    var post_gif_timestamp = function(args) {
         var url = '/1/dropgif/' + user + '/' + songname;
         $.post(url,
             {
                 user: user,
-                gif: gif_url,
-                timestamp: -999,
+                gif: args.gif_url,
+                timestamp: position_to_timestamp(args.position),
                 row: 1
             },
             function(data) {
