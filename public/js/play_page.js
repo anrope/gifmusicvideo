@@ -27,15 +27,20 @@ $(document).ready( function() {
         },
         drag: function() {
             var left_pos = $('.ui-draggable-dragging').offset().left;
+            if ( left_pos < 0 ) {
+                left_pos = 0;
+            }
             $('#placer').css('left', left_pos);
         },
     });
     $('#gif_inner').droppable({
         over: function(e, ui){
             $('.ui-draggable-dragging').addClass('over');
+            $('#placer').addClass('active');
         },
         out: function(e, ui){
             $('.ui-draggable-dragging').removeClass('over');
+            $('#placer').removeClass('active');
         },
         drop: function(e, ui){
             $placer = $('#placer');
@@ -50,6 +55,11 @@ $(document).ready( function() {
                 'width': width,
                 'background-image': background_image
             }).removeClass('placed');
+        }
+    });
+    $('.gif_placed_box').droppable({
+        over: function(e, ui){
+            console.log('over');
         }
     });
     $('#scroll').click(function() {
