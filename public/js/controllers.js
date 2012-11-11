@@ -1,4 +1,4 @@
-function PlayerCtrl($scope) {
+function PlayerCtrl($scope, $http) {
     // Get GIF data for the song
     $http.get(appConfig.context + '/1/song/').success(function(data) {
         $scope.phones = data;
