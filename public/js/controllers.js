@@ -16,7 +16,8 @@ function PlayerCtrl($scope, $http) {
 
 
     // Get GIF data for the song
-    $http.get(appConfig.context + '/1/suggest/anrope/gangnam-style').success(function(data) {
+    song_api = appConfig.context + '/1/suggest/' + user + "/" + songname + "/";
+    $http.get(song_api).success(function(data) {
         console.log(data);
         console.log('lol');
         $scope.suggest = data;

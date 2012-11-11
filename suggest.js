@@ -7,7 +7,7 @@ var base_url = "http://alizweb.s3.amazonaws.com/gifmusicvideo/"
 module.exports = function (req, res) {
     gifs = {
         "base_url": base_url,
-        "images": images
+        "images": images.slice(0,10)
     }
 
     res.send(JSON.stringify(gifs));
