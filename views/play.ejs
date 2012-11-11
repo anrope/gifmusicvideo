@@ -1,7 +1,7 @@
 <% angular_controller = "PlayerCtrl" %>
 
 <div id="header">
-    <div id="logo">drop the gif</div>
+    <div id="logo">gif me baby one more time</div>
     <div id="song_name"><%- song_name %></div>
 </div>
 <div id="gif_block">
@@ -18,7 +18,9 @@
 <div id="gif_strip">
     <div id="side_bottom">
         <div ng-repeat="gif in images" class="gif_box" style="background-image: url({{base_url}}{{gif.filename}});"></div>
-        <a id="suggest_more" style="background-image: url(/img/arrow_button_right.png);" href="#"></a>
+        <a id="suggest_more" href="#">
+            <div id="suggest_arrow"></div>
+        </a>
     </div>
 </div>
 

@@ -54,14 +54,20 @@
         z-index: 9999;
     }
     #suggest_more {
-        width: 100px;
+        width: 40px;
         height: 100px;
-        background-position: center center;
-        background-size: cover;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.4);
         float: left;
         position: relative;
         margin: 20px 0 0 20px;
+        background-color: #666;
+    }
+    #suggest_arrow {
+        border: solid 12px #ddd;
+        border-color: transparent transparent transparent #222;
+        margin: 39px 0 0 14px;
+    }
+    #suggest_more:hover {
+        background-color: #999;
     }
     #side_bottom {
     }
