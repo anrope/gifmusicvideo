@@ -1,16 +1,15 @@
 function PlayerCtrl($scope) {
-    $scope.phones = [
-    {
-        "name": "Nexus S",
-        "snippet": "Fast just got faster with Nexus S."
-    },
-    {
-        "name": "Motorola XOOM™ with Wi-Fi",
-        "snippet": "The Next, Next Generation tablet."
-    },
-    {
-        "name": "MOTOROLA XOOM™",
-        "snippet": "The Next, Next Generation tablet."
-    }
-    ];
+    // Get GIF data for the song
+    $http.get(appConfig.context + '/1/song/').success(function(data) {
+        $scope.phones = data;
+    });
+
+
+    // Get GIF data for the song
+    $http.get(appConfig.context + '/1/fetchgifs/').success(function(data) {
+        $scope.phones = data;
+    });
+
+    // Render player
+    
 }
